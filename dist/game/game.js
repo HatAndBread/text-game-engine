@@ -1,13 +1,19 @@
 export default class Game {
-    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white' }) {
+    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null }) {
         this.loop = () => {
             const stuff = ["▇", "█", "▉", "▐", "░", "▒", "▓"];
             this.rows.forEach((row) => {
                 row.forEach((el) => {
                     el.textContent = stuff[Math.floor(Math.random() * stuff.length)];
-                    //el.style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`
                 });
             });
+            if (this.sprites) {
+                this.sprites.forEach((sprite) => {
+                    for (let i = 0; i < sprite.shape[0].length; i++) {
+                        this.rows[sprite.yPos][sprite.xPos + i].textContent = sprite.shape[0][i];
+                    }
+                });
+            }
             if (this.animating)
                 window.requestAnimationFrame(this.loop);
         };
@@ -17,6 +23,7 @@ export default class Game {
         this.pixelSize = pixelSize;
         this.backgroundColor = backgroundColor;
         this.rows = [];
+        this.sprites = sprites;
         this.animating = false;
         this.canvas = document.createElement('div');
     }

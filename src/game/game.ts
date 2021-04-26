@@ -72,6 +72,13 @@ export default class Game{
                 el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
             })
         })
+        if (this.sprites){
+            this.sprites.forEach((sprite)=>{
+                for (let i = 0; i < sprite.shape[0].length; i++){
+                    this.rows[sprite.yPos][sprite.xPos + i].textContent = sprite.shape[0][i]
+                }
+            })
+        }
         if (this.animating) window.requestAnimationFrame(this.loop)
     }
 }
