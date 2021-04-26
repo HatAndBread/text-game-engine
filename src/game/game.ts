@@ -74,9 +74,13 @@ export default class Game{
         })
         if (this.sprites){
             this.sprites.forEach((sprite)=>{
-                for (let i = 0; i < sprite.shape[0].length; i++){
-                    this.rows[sprite.yPos][sprite.xPos + i].textContent = sprite.shape[0][i]
-                }
+                sprite.shape[sprite.currentFrame].forEach((char)=>{
+                    const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x]                
+                        pixel.textContent = char.char
+                        if (char.backgroundColor) pixel.style.backgroundColor = char.backgroundColor;
+                        pixel.style.color = char.color;
+                })
+                sprite.updateFrame()
             })
         }
         if (this.animating) window.requestAnimationFrame(this.loop)

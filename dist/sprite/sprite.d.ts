@@ -4,7 +4,13 @@ interface Options {
     color?: string;
     backgroundColor?: string;
     zIndex?: number;
-    shape?: string[];
+    shape?: {
+        char: string;
+        color: string;
+        backgroundColor?: string;
+        x: number;
+        y: number;
+    }[][];
 }
 export default class Sprite {
     initial: Options;
@@ -13,7 +19,15 @@ export default class Sprite {
     color: string;
     backgroundColor: string;
     zIndex: number;
-    shape: string[];
+    shape: {
+        char: string;
+        color: string;
+        backgroundColor?: string;
+        x: number;
+        y: number;
+    }[][];
+    currentFrame: number;
     constructor({ xPos, yPos, color, backgroundColor, zIndex, shape }: Options);
+    updateFrame: () => number;
 }
 export {};
