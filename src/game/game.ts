@@ -1,4 +1,5 @@
 import Pixel from '../pixel/pixel.js'
+import Sprite from '../sprite/sprite.js'
 import BRUSHES from '../constants/BRUSHES.js';
 
 interface Options  {
@@ -7,6 +8,7 @@ interface Options  {
   fps?: number
   pixelSize?: number
   backgroundColor?: string
+  sprites?: Sprite[] | null
 }
 
 export default class Game{
@@ -15,17 +17,19 @@ export default class Game{
     fps: number
     pixelSize: number
     backgroundColor: string
+    sprites: Sprite[] | null
     animating: boolean;
     canvas: HTMLDivElement;
     rows: HTMLDivElement[][]
 
-    constructor({width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white'}: Options){
+    constructor({width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null}: Options){
         this.width = width;
         this.height = height;
         this.fps = fps;
         this.pixelSize = pixelSize;
         this.backgroundColor = backgroundColor;
         this.rows = []
+        this.sprites = sprites
         this.animating = false;
         this.canvas = document.createElement('div');
     }
@@ -66,7 +70,6 @@ export default class Game{
         this.rows.forEach((row)=>{
             row.forEach((el)=>{
                 el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
-                //el.style.backgroundColor = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`
             })
         })
         if (this.animating) window.requestAnimationFrame(this.loop)

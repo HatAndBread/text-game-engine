@@ -11,7 +11,6 @@ class Pixel {
         element.style.width = `${this.width}px`;
         element.innerText = this.brush;
     }
-
 }
 
 
