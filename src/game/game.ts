@@ -6,6 +6,7 @@ import {
   listenForKeyboard,
   checkKeyboardEvents
 } from '../keyboard/keyboard.js';
+import round from '../helpers/round.js';
 
 interface Options {
   width?: number;
@@ -14,7 +15,7 @@ interface Options {
   pixelSize?: number;
   backgroundColor?: string;
   sprites?: Sprite[] | null;
-  keyboardSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
+  keyboardSpeed?: number;
 }
 
 export default class Game {
@@ -28,7 +29,7 @@ export default class Game {
   canvas: HTMLDivElement;
   rows: HTMLDivElement[][];
   currentTick: number;
-  keyboardSpeed: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
+  keyboardSpeed: number;
   elementsToBeCleared: HTMLDivElement[];
 
   constructor({
@@ -49,7 +50,7 @@ export default class Game {
     this.sprites = sprites;
     this.animating = false;
     this.elementsToBeCleared = [];
-    this.keyboardSpeed = keyboardSpeed;
+    this.keyboardSpeed = round(keyboardSpeed);
     this.currentTick = 0;
     listenForKeyboard();
     this.canvas = document.createElement('div');

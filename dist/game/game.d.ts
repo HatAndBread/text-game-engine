@@ -6,7 +6,7 @@ interface Options {
     pixelSize?: number;
     backgroundColor?: string;
     sprites?: Sprite[] | null;
-    keyboardSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
+    keyboardSpeed?: number;
 }
 export default class Game {
     width: number;
@@ -19,7 +19,7 @@ export default class Game {
     canvas: HTMLDivElement;
     rows: HTMLDivElement[][];
     currentTick: number;
-    keyboardSpeed: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
+    keyboardSpeed: number;
     elementsToBeCleared: HTMLDivElement[];
     constructor({ width, height, fps, pixelSize, backgroundColor, sprites, keyboardSpeed }: Options);
     createCanvas(): void;

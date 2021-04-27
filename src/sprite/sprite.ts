@@ -1,9 +1,11 @@
+import round from '../helpers/round.js';
+
 interface Options {
   xPos?: number;
   yPos?: number;
   color?: string;
   backgroundColor?: string;
-  animationSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
+  animationSpeed?: number;
   zIndex?: number;
 }
 
@@ -41,7 +43,7 @@ export default class Sprite {
     this.backgroundColor = backgroundColor;
     this.zIndex = zIndex;
     this.currentFrame = 0;
-    this.animationSpeed = animationSpeed;
+    this.animationSpeed = round(animationSpeed);
     this.animations = {};
     this.currentAnimation = null;
     Object.freeze(this.initial);

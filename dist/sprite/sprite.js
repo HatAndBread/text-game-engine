@@ -1,3 +1,4 @@
+import round from '../helpers/round.js';
 export default class Sprite {
     constructor({ xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0, animationSpeed = 5 }) {
         this.setCurrentAnimation = (name) => {
@@ -28,7 +29,7 @@ export default class Sprite {
         this.backgroundColor = backgroundColor;
         this.zIndex = zIndex;
         this.currentFrame = 0;
-        this.animationSpeed = animationSpeed;
+        this.animationSpeed = round(animationSpeed);
         this.animations = {};
         this.currentAnimation = null;
         Object.freeze(this.initial);

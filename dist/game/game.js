@@ -1,5 +1,6 @@
 import updateSprites from '../sprite/updateSprites.js';
 import { listenForKeyboard, checkKeyboardEvents } from '../keyboard/keyboard.js';
+import round from '../helpers/round.js';
 export default class Game {
     constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null, keyboardSpeed = 2 }) {
         this.loop = () => {
@@ -24,7 +25,7 @@ export default class Game {
         this.sprites = sprites;
         this.animating = false;
         this.elementsToBeCleared = [];
-        this.keyboardSpeed = keyboardSpeed;
+        this.keyboardSpeed = round(keyboardSpeed);
         this.currentTick = 0;
         listenForKeyboard();
         this.canvas = document.createElement('div');
