@@ -1,32 +1,17 @@
+import updateSprites from '../sprite/updateSprites.js';
 import { listenForKeyboard, checkKeyboardEvents } from '../keyboard/keyboard.js';
 export default class Game {
-    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null }) {
+    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null, keyboardSpeed = 2 }) {
         this.loop = () => {
-            checkKeyboardEvents();
+            if (!(this.currentTick % this.keyboardSpeed))
+                checkKeyboardEvents();
             this.elementsToBeCleared.forEach((el) => {
                 el.textContent = '';
                 el.style.backgroundColor = 'transparent';
             });
             this.elementsToBeCleared = [];
-            if (this.sprites) {
-                this.sprites.forEach((sprite) => {
-                    if (sprite.currentAnimation) {
-                        sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char) => {
-                            if (this.rows[sprite.yPos + char.y] &&
-                                this.rows[sprite.yPos + char.y][sprite.xPos + char.x]) {
-                                const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];
-                                this.elementsToBeCleared.push(pixel);
-                                pixel.textContent = char.char;
-                                if (sprite.backgroundColor) {
-                                    pixel.style.backgroundColor = sprite.backgroundColor;
-                                }
-                                pixel.style.color = char.color;
-                            }
-                        });
-                    }
-                    sprite.updateFrame();
-                });
-            }
+            updateSprites(this);
+            this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
             if (this.animating)
                 window.requestAnimationFrame(this.loop);
         };
@@ -39,6 +24,8 @@ export default class Game {
         this.sprites = sprites;
         this.animating = false;
         this.elementsToBeCleared = [];
+        this.keyboardSpeed = keyboardSpeed;
+        this.currentTick = 0;
         listenForKeyboard();
         this.canvas = document.createElement('div');
     }

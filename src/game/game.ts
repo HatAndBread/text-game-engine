@@ -1,6 +1,7 @@
 import Pixel from '../pixel/pixel.js';
 import Sprite from '../sprite/sprite.js';
 import BRUSHES from '../constants/BRUSHES.js';
+import updateSprites from '../sprite/updateSprites.js';
 import {
   listenForKeyboard,
   checkKeyboardEvents
@@ -13,6 +14,7 @@ interface Options {
   pixelSize?: number;
   backgroundColor?: string;
   sprites?: Sprite[] | null;
+  keyboardSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
 }
 
 export default class Game {
@@ -25,6 +27,8 @@ export default class Game {
   animating: boolean;
   canvas: HTMLDivElement;
   rows: HTMLDivElement[][];
+  currentTick: number;
+  keyboardSpeed: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
   elementsToBeCleared: HTMLDivElement[];
 
   constructor({
@@ -33,7 +37,8 @@ export default class Game {
     fps = 5,
     pixelSize = 5,
     backgroundColor = 'white',
-    sprites = null
+    sprites = null,
+    keyboardSpeed = 2
   }: Options) {
     this.width = width;
     this.height = height;
@@ -44,6 +49,8 @@ export default class Game {
     this.sprites = sprites;
     this.animating = false;
     this.elementsToBeCleared = [];
+    this.keyboardSpeed = keyboardSpeed;
+    this.currentTick = 0;
     listenForKeyboard();
     this.canvas = document.createElement('div');
   }
@@ -85,37 +92,14 @@ export default class Game {
     this.animating = false;
   }
   private loop = () => {
-    checkKeyboardEvents();
+    if (!(this.currentTick % this.keyboardSpeed)) checkKeyboardEvents();
     this.elementsToBeCleared.forEach((el) => {
       el.textContent = '';
       el.style.backgroundColor = 'transparent';
     });
     this.elementsToBeCleared = [];
-    if (this.sprites) {
-      this.sprites.forEach((sprite) => {
-        if (sprite.currentAnimation) {
-          sprite.animations[sprite.currentAnimation][
-            sprite.currentFrame
-          ].forEach((char) => {
-            if (
-              this.rows[sprite.yPos + char.y] &&
-              this.rows[sprite.yPos + char.y][sprite.xPos + char.x]
-            ) {
-              const pixel = this.rows[sprite.yPos + char.y][
-                sprite.xPos + char.x
-              ];
-              this.elementsToBeCleared.push(pixel);
-              pixel.textContent = char.char;
-              if (sprite.backgroundColor) {
-                pixel.style.backgroundColor = sprite.backgroundColor;
-              }
-              pixel.style.color = char.color;
-            }
-          });
-        }
-        sprite.updateFrame();
-      });
-    }
+    updateSprites(this);
+    this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
     if (this.animating) window.requestAnimationFrame(this.loop);
   };
 }
