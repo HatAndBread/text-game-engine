@@ -26,6 +26,10 @@ export default class Sprite {
         [key: string]: Animation;
     };
     currentAnimation: string | null;
+    currentCoords: {
+        x: number;
+        y: number;
+    }[];
     constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
     setCurrentAnimation: (name: string) => void;
     updateFrame: (currentTick: number) => void;
@@ -42,5 +46,6 @@ export default class Sprite {
         x: number;
         y: number;
     }[][];
+    private createCoords;
 }
 export {};

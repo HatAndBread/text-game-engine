@@ -28,7 +28,7 @@ export default class Sprite {
   animationSpeed: number;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
-  coords: { x: number; y: number }[];
+  currentCoords: { x: number; y: number }[];
   constructor({
     xPos = 0,
     yPos = 0,
@@ -47,7 +47,7 @@ export default class Sprite {
     this.animationSpeed = round(animationSpeed);
     this.animations = {};
     this.currentAnimation = null;
-    this.coords = [];
+    this.currentCoords = this.createCoords();
     Object.freeze(this.initial);
   }
   setCurrentAnimation = (name: string) => {
@@ -59,6 +59,7 @@ export default class Sprite {
     }
   };
   updateFrame = (currentTick: number) => {
+    this.currentCoords = this.createCoords();
     if (
       this.currentAnimation &&
       this.currentFrame < this.animations[this.currentAnimation].length - 1
@@ -78,5 +79,15 @@ export default class Sprite {
       y: number;
     }[][]
   ) => (this.animations[name] = animation);
-  private createCoords = () => {};
+  private createCoords = () => {
+    const coords: { x: number; y: number }[] = [];
+    if (this.currentAnimation) {
+      this.animations[this.currentAnimation][this.currentFrame].forEach(
+        (char) => {
+          coords.push({ x: char.x + this.xPos, y: char.x + this.yPos });
+        }
+      );
+    }
+    return coords;
+  };
 }
