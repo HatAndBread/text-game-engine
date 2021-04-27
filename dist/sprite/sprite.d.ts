@@ -4,13 +4,6 @@ interface Options {
     color?: string;
     backgroundColor?: string;
     zIndex?: number;
-    shape?: {
-        char: string;
-        color: string;
-        backgroundColor?: string;
-        x: number;
-        y: number;
-    }[][];
 }
 declare type Animation = {
     char: string;
@@ -26,20 +19,26 @@ export default class Sprite {
     color: string;
     backgroundColor: string;
     zIndex: number;
-    shape: {
-        char: string;
-        color: string;
-        backgroundColor?: string;
-        x: number;
-        y: number;
-    }[][];
     currentFrame: number;
     animations: {
         [key: string]: Animation;
     };
     currentAnimation: string | null;
-    constructor({ xPos, yPos, color, backgroundColor, zIndex, shape }: Options);
-    updateFrame: () => number;
-    addAnimation: (name: string, animation: Animation) => Animation;
+    constructor({ xPos, yPos, color, backgroundColor, zIndex }: Options);
+    setCurrentAnimation: (name: string) => void;
+    updateFrame: () => void;
+    addAnimation: (name: string, animation: {
+        char: string;
+        color: string;
+        backgroundColor?: string;
+        x: number;
+        y: number;
+    }[][]) => {
+        char: string;
+        color: string;
+        backgroundColor?: string | undefined;
+        x: number;
+        y: number;
+    }[][];
 }
 export {};

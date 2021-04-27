@@ -9,7 +9,7 @@ export default class Game {
             // })
             if (this.sprites) {
                 this.sprites.forEach((sprite) => {
-                    sprite.shape[sprite.currentFrame].forEach((char) => {
+                    sprite.currentAnimation && sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char) => {
                         const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];
                         pixel.textContent = char.char;
                         if (sprite.backgroundColor)

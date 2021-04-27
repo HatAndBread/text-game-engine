@@ -4,7 +4,6 @@ interface Options{
   color?: string
   backgroundColor?: string
   zIndex?: number
-  shape?: {char: string, color: string, backgroundColor?: string, x: number, y: number}[][]
 }
 
 type Animation = {char: string, color: string, backgroundColor?: string, x: number, y: number}[][]
@@ -16,24 +15,35 @@ export default class Sprite{
     color: string
     backgroundColor: string
     zIndex: number
-    shape: {char: string, color: string, backgroundColor?: string, x: number, y: number}[][]
     currentFrame: number
     animations: {[key:string]: Animation}
     currentAnimation: string | null
-    constructor({xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0, shape = [[{char: '', color: 'white', backgroundColor: 'transparent', x: 0, y: 0}]] }: Options){
-        this.initial = {shape, xPos, yPos, color, backgroundColor, zIndex};
+    constructor({xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0 }: Options){
+        this.initial = {xPos, yPos, color, backgroundColor, zIndex};
         this.xPos = xPos;
         this.yPos = yPos;
         this.color = color;
         this.backgroundColor = backgroundColor;
         this.zIndex = zIndex;
-        this.shape = shape;
         this.currentFrame = 0;
         this.animations = {}
         this.currentAnimation = null;
         Object.freeze(this.initial);
     }
-    updateFrame = ()=> this.currentFrame < this.shape.length - 1 ? this.currentFrame += 1 : this.currentFrame = 0; 
-    addAnimation = (name: string, animation: Animation) => this.animations[name] = animation;
+    setCurrentAnimation = (name: string) =>{
+        if (!this.animations[name]){
+            throw new Error(`Animation ${name} does not exist on ${this}`)
+        }else{
+            this.currentFrame = 0;
+            this.currentAnimation = name;
+        }
+    }
+    updateFrame = () => {
+        if (this.currentAnimation && this.currentFrame < this.animations[this.currentAnimation].length - 1){
+            this.currentFrame += 1
+        } else{
+            this.currentFrame = 0}
+        }; 
+    addAnimation = (name: string, animation: {char: string, color: string, backgroundColor?: string, x: number, y: number}[][]) => this.animations[name] = animation;
 }
 

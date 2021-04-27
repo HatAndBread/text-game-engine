@@ -78,8 +78,8 @@ export default class Game{
         // })
         if (this.sprites){
             this.sprites.forEach((sprite)=>{
-                sprite.shape[sprite.currentFrame].forEach((char)=>{
-                    const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x]                
+                sprite.currentAnimation && sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char)=>{
+                    const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];               
                         pixel.textContent = char.char
                         if (sprite.backgroundColor) pixel.style.backgroundColor = sprite.backgroundColor;
                         pixel.style.color = char.color;
