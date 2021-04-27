@@ -1,20 +1,23 @@
+import { listenForKeyboard } from '../keyboard/keyboard.js';
 export default class Game {
     constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null }) {
         this.loop = () => {
             // const stuff = ["▒","▓", ' ', ' ']
-            // this.rows.forEach((row)=>{
-            //     row.forEach((el)=>{
-            //         el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
-            //     })
-            // })
+            this.rows.forEach((row) => {
+                row.forEach((el) => {
+                    el.textContent = '';
+                });
+            });
             if (this.sprites) {
                 this.sprites.forEach((sprite) => {
                     sprite.currentAnimation && sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char) => {
-                        const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];
-                        pixel.textContent = char.char;
-                        if (sprite.backgroundColor)
-                            pixel.style.backgroundColor = sprite.backgroundColor;
-                        pixel.style.color = char.color;
+                        if (this.rows[sprite.yPos + char.y] && this.rows[sprite.yPos + char.y][sprite.xPos + char.x]) {
+                            const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];
+                            pixel.textContent = char.char;
+                            if (sprite.backgroundColor)
+                                pixel.style.backgroundColor = sprite.backgroundColor;
+                            pixel.style.color = char.color;
+                        }
                     });
                     sprite.updateFrame();
                 });
@@ -30,6 +33,7 @@ export default class Game {
         this.rows = [];
         this.sprites = sprites;
         this.animating = false;
+        listenForKeyboard();
         this.canvas = document.createElement('div');
     }
     createCanvas() {

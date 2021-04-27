@@ -1,6 +1,7 @@
 import Pixel from '../pixel/pixel.js'
 import Sprite from '../sprite/sprite.js'
 import BRUSHES from '../constants/BRUSHES.js';
+import {listenForKeyboard} from '../keyboard/keyboard.js'
 
 interface Options  {
   width?: number
@@ -31,6 +32,7 @@ export default class Game{
         this.rows = []
         this.sprites = sprites
         this.animating = false;
+        listenForKeyboard()
         this.canvas = document.createElement('div');
     }
     createCanvas(){
@@ -71,18 +73,20 @@ export default class Game{
     }
     private loop = () => {
         // const stuff = ["▒","▓", ' ', ' ']
-        // this.rows.forEach((row)=>{
-        //     row.forEach((el)=>{
-        //         el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
-        //     })
-        // })
+        this.rows.forEach((row)=>{
+            row.forEach((el)=>{
+                el.textContent = ''
+            })
+        })
         if (this.sprites){
             this.sprites.forEach((sprite)=>{
                 sprite.currentAnimation && sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char)=>{
-                    const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];               
+                    if (this.rows[sprite.yPos + char.y] && this.rows[sprite.yPos + char.y][sprite.xPos + char.x]){
+                        const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x];               
                         pixel.textContent = char.char
                         if (sprite.backgroundColor) pixel.style.backgroundColor = sprite.backgroundColor;
                         pixel.style.color = char.color;
+                    } 
                 })
                 sprite.updateFrame()
             })
