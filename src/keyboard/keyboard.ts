@@ -10,7 +10,6 @@ export const listenForKeyboard = () => {
         keyDownEvents[i].callback();
       }
     }
-    console.log(keysCurrentlyDown, '✨');
   });
   document.addEventListener('keyup', (e) => {
     keysCurrentlyDown.forEach((key, index) => {
@@ -21,7 +20,6 @@ export const listenForKeyboard = () => {
         keyUpEvents[i].callback();
       }
     }
-    console.log(keysCurrentlyDown, '✨');
   });
 };
 
