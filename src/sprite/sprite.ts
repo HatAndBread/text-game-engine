@@ -24,7 +24,6 @@ export default class Sprite {
   zIndex: number;
   currentFrame: number;
   animationSpeed: number;
-  currentTick: number;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
   constructor({
@@ -42,7 +41,6 @@ export default class Sprite {
     this.backgroundColor = backgroundColor;
     this.zIndex = zIndex;
     this.currentFrame = 0;
-    this.currentTick = 0;
     this.animationSpeed = animationSpeed;
     this.animations = {};
     this.currentAnimation = null;
@@ -56,15 +54,14 @@ export default class Sprite {
       this.currentAnimation = name;
     }
   };
-  updateFrame = () => {
-    this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
+  updateFrame = (currentTick: number) => {
     if (
       this.currentAnimation &&
       this.currentFrame < this.animations[this.currentAnimation].length - 1
     ) {
-      if (!(this.currentTick % this.animationSpeed)) this.currentFrame += 1;
+      if (!(currentTick % this.animationSpeed)) this.currentFrame += 1;
     } else {
-      if (!(this.currentTick % this.animationSpeed)) this.currentFrame = 0;
+      if (!(currentTick % this.animationSpeed)) this.currentFrame = 0;
     }
   };
   addAnimation = (

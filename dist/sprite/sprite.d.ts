@@ -22,14 +22,13 @@ export default class Sprite {
     zIndex: number;
     currentFrame: number;
     animationSpeed: number;
-    currentTick: number;
     animations: {
         [key: string]: Animation;
     };
     currentAnimation: string | null;
     constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
     setCurrentAnimation: (name: string) => void;
-    updateFrame: () => void;
+    updateFrame: (currentTick: number) => void;
     addAnimation: (name: string, animation: {
         char: string;
         color: string;

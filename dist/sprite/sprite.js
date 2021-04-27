@@ -9,15 +9,14 @@ export default class Sprite {
                 this.currentAnimation = name;
             }
         };
-        this.updateFrame = () => {
-            this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
+        this.updateFrame = (currentTick) => {
             if (this.currentAnimation &&
                 this.currentFrame < this.animations[this.currentAnimation].length - 1) {
-                if (!(this.currentTick % this.animationSpeed))
+                if (!(currentTick % this.animationSpeed))
                     this.currentFrame += 1;
             }
             else {
-                if (!(this.currentTick % this.animationSpeed))
+                if (!(currentTick % this.animationSpeed))
                     this.currentFrame = 0;
             }
         };
@@ -29,7 +28,6 @@ export default class Sprite {
         this.backgroundColor = backgroundColor;
         this.zIndex = zIndex;
         this.currentFrame = 0;
-        this.currentTick = 0;
         this.animationSpeed = animationSpeed;
         this.animations = {};
         this.currentAnimation = null;

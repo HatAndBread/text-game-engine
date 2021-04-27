@@ -21,7 +21,7 @@ const updateSprites = (game: Game) => {
           }
         );
       }
-      sprite.updateFrame();
+      sprite.updateFrame(game.currentTick);
     });
   }
 };
