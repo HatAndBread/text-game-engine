@@ -25,6 +25,7 @@ export default class Game {
   animating: boolean;
   canvas: HTMLDivElement;
   rows: HTMLDivElement[][];
+  elementsToBeCleared: HTMLDivElement[];
 
   constructor({
     width = 100,
@@ -42,6 +43,7 @@ export default class Game {
     this.rows = [];
     this.sprites = sprites;
     this.animating = false;
+    this.elementsToBeCleared = [];
     listenForKeyboard();
     this.canvas = document.createElement('div');
   }
@@ -66,8 +68,10 @@ export default class Game {
         newPixel.style.margin = '0px';
         newPixel.style.height = `${this.pixelSize}px`;
         newPixel.style.width = `${this.pixelSize - this.pixelSize * 0.4}px`;
+        newPixel.style.display = 'flex';
+        newPixel.style.justifyContent = 'center';
         newPixel.style.textAlign = 'center';
-        newPixel.style.overflow = 'hidden';
+        //newPixel.style.overflow = 'hidden';
         newRow.appendChild(newPixel);
         arr.push(newPixel);
       }
@@ -83,14 +87,14 @@ export default class Game {
   }
   private loop = () => {
     checkKeyboardEvents();
-    this.rows.forEach((row) => {
-      row.forEach((el) => {
-        el.textContent = '';
-      });
+    this.elementsToBeCleared.forEach((el) => {
+      el.textContent = '';
+      el.style.backgroundColor = 'transparent';
     });
+    this.elementsToBeCleared = [];
     if (this.sprites) {
       this.sprites.forEach((sprite) => {
-        sprite.currentAnimation &&
+        if (sprite.currentAnimation) {
           sprite.animations[sprite.currentAnimation][
             sprite.currentFrame
           ].forEach((char) => {
@@ -101,12 +105,15 @@ export default class Game {
               const pixel = this.rows[sprite.yPos + char.y][
                 sprite.xPos + char.x
               ];
+              this.elementsToBeCleared.push(pixel);
               pixel.textContent = char.char;
-              if (sprite.backgroundColor)
+              if (sprite.backgroundColor) {
                 pixel.style.backgroundColor = sprite.backgroundColor;
+              }
               pixel.style.color = char.color;
             }
           });
+        }
         sprite.updateFrame();
       });
     }

@@ -17,6 +17,7 @@ export default class Game {
     animating: boolean;
     canvas: HTMLDivElement;
     rows: HTMLDivElement[][];
+    elementsToBeCleared: HTMLDivElement[];
     constructor({ width, height, fps, pixelSize, backgroundColor, sprites }: Options);
     createCanvas(): void;
     startLoop(): void;
