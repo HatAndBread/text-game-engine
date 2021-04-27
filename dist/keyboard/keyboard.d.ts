@@ -1,3 +1,4 @@
+export declare const checkKeyboardEvents: () => void;
 export declare const listenForKeyboard: () => void;
 export declare const onKeyDown: (key: keys, callback: () => any) => void;
 export declare const onKeyUp: (key: keys, callback: () => any) => void;

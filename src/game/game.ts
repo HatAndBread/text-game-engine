@@ -1,7 +1,10 @@
 import Pixel from '../pixel/pixel.js';
 import Sprite from '../sprite/sprite.js';
 import BRUSHES from '../constants/BRUSHES.js';
-import { listenForKeyboard } from '../keyboard/keyboard.js';
+import {
+  listenForKeyboard,
+  checkKeyboardEvents
+} from '../keyboard/keyboard.js';
 
 interface Options {
   width?: number;
@@ -80,6 +83,7 @@ export default class Game {
   }
   private loop = () => {
     // const stuff = ["▒","▓", ' ', ' '];
+    checkKeyboardEvents();
     this.rows.forEach((row) => {
       row.forEach((el) => {
         el.textContent = '';

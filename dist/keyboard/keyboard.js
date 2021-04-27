@@ -1,21 +1,17 @@
 const keyDownEvents = [];
 const keyUpEvents = [];
 const keysCurrentlyDown = [];
+export const checkKeyboardEvents = () => {
+    for (let i = 0; i < keyDownEvents.length; i++) {
+        if (keysCurrentlyDown.includes(keyDownEvents[i].key)) {
+            keyDownEvents[i].callback();
+        }
+    }
+};
 export const listenForKeyboard = () => {
     document.addEventListener('keydown', (e) => {
         if (!keysCurrentlyDown.includes(e.key))
             keysCurrentlyDown.push(e.key);
-        for (let i = 0; i < keyDownEvents.length; i++) {
-            if (keysCurrentlyDown.includes(keyDownEvents[i].key)) {
-                keyDownEvents[i].callback();
-            }
-        }
-        // for (let i = 0; i < keyDownEvents.length; i++) {
-        //   if (keyDownEvents[i].key === e.key) {
-        //     keyDownEvents[i].callback();
-        //   }
-        // }
-        console.log(keysCurrentlyDown, '✨');
     });
     document.addEventListener('keyup', (e) => {
         keysCurrentlyDown.forEach((key, index) => {
@@ -27,7 +23,6 @@ export const listenForKeyboard = () => {
                 keyUpEvents[i].callback();
             }
         }
-        console.log(keysCurrentlyDown, '✨');
     });
 };
 export const onKeyDown = (key, callback) => {

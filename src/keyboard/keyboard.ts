@@ -2,14 +2,17 @@ const keyDownEvents: { key: keys; callback: () => any }[] = [];
 const keyUpEvents: { key: keys; callback: () => any }[] = [];
 const keysCurrentlyDown: string[] = [];
 
+export const checkKeyboardEvents = () => {
+  for (let i = 0; i < keyDownEvents.length; i++) {
+    if (keysCurrentlyDown.includes(keyDownEvents[i].key)) {
+      keyDownEvents[i].callback();
+    }
+  }
+};
+
 export const listenForKeyboard = () => {
   document.addEventListener('keydown', (e) => {
     if (!keysCurrentlyDown.includes(e.key)) keysCurrentlyDown.push(e.key);
-    for (let i = 0; i < keyDownEvents.length; i++) {
-      if (keysCurrentlyDown.includes(keyDownEvents[i].key)) {
-        keyDownEvents[i].callback();
-      }
-    }
   });
   document.addEventListener('keyup', (e) => {
     keysCurrentlyDown.forEach((key, index) => {
