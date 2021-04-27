@@ -3,7 +3,7 @@ interface Options {
     yPos?: number;
     color?: string;
     backgroundColor?: string;
-    fps?: number;
+    animationSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
     zIndex?: number;
 }
 declare type Animation = {
@@ -21,13 +21,13 @@ export default class Sprite {
     backgroundColor: string;
     zIndex: number;
     currentFrame: number;
-    fps: number;
+    animationSpeed: number;
     currentTick: number;
     animations: {
         [key: string]: Animation;
     };
     currentAnimation: string | null;
-    constructor({ xPos, yPos, color, backgroundColor, zIndex, fps }: Options);
+    constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
     setCurrentAnimation: (name: string) => void;
     updateFrame: () => void;
     addAnimation: (name: string, animation: {

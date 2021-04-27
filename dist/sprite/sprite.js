@@ -1,5 +1,5 @@
 export default class Sprite {
-    constructor({ xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0, fps = 5 }) {
+    constructor({ xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0, animationSpeed = 5 }) {
         this.setCurrentAnimation = (name) => {
             if (!this.animations[name]) {
                 throw new Error(`Animation ${name} does not exist on ${this}`);
@@ -13,11 +13,11 @@ export default class Sprite {
             this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
             if (this.currentAnimation &&
                 this.currentFrame < this.animations[this.currentAnimation].length - 1) {
-                if (!(this.currentTick % this.fps))
+                if (!(this.currentTick % this.animationSpeed))
                     this.currentFrame += 1;
             }
             else {
-                if (!(this.currentTick % this.fps))
+                if (!(this.currentTick % this.animationSpeed))
                     this.currentFrame = 0;
             }
         };
@@ -30,7 +30,7 @@ export default class Sprite {
         this.zIndex = zIndex;
         this.currentFrame = 0;
         this.currentTick = 0;
-        this.fps = fps;
+        this.animationSpeed = animationSpeed;
         this.animations = {};
         this.currentAnimation = null;
         Object.freeze(this.initial);

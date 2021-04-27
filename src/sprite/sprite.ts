@@ -3,7 +3,7 @@ interface Options {
   yPos?: number;
   color?: string;
   backgroundColor?: string;
-  fps?: number;
+  animationSpeed?: 1 | 2 | 3 | 4 | 5 | 6 | 10 | 12 | 15 | 20 | 30 | 60;
   zIndex?: number;
 }
 
@@ -23,7 +23,7 @@ export default class Sprite {
   backgroundColor: string;
   zIndex: number;
   currentFrame: number;
-  fps: number;
+  animationSpeed: number;
   currentTick: number;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
@@ -33,7 +33,7 @@ export default class Sprite {
     color = 'black',
     backgroundColor = 'transparent',
     zIndex = 0,
-    fps = 5
+    animationSpeed = 5
   }: Options) {
     this.initial = { xPos, yPos, color, backgroundColor, zIndex };
     this.xPos = xPos;
@@ -43,7 +43,7 @@ export default class Sprite {
     this.zIndex = zIndex;
     this.currentFrame = 0;
     this.currentTick = 0;
-    this.fps = fps;
+    this.animationSpeed = animationSpeed;
     this.animations = {};
     this.currentAnimation = null;
     Object.freeze(this.initial);
@@ -62,9 +62,9 @@ export default class Sprite {
       this.currentAnimation &&
       this.currentFrame < this.animations[this.currentAnimation].length - 1
     ) {
-      if (!(this.currentTick % this.fps)) this.currentFrame += 1;
+      if (!(this.currentTick % this.animationSpeed)) this.currentFrame += 1;
     } else {
-      if (!(this.currentTick % this.fps)) this.currentFrame = 0;
+      if (!(this.currentTick % this.animationSpeed)) this.currentFrame = 0;
     }
   };
   addAnimation = (

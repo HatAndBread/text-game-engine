@@ -13,7 +13,12 @@ const animationOne = [
         { char: '►', color: 'aqua', x: 2, y: 1 }
     ]
 ];
-const sprite = new s.Sprite({ xPos: 10, yPos: 10, zIndex: 1 });
+const sprite = new s.Sprite({
+    xPos: 10,
+    yPos: 10,
+    zIndex: 1,
+    animationSpeed: 5
+});
 sprite.addAnimation('main', animationOne);
 sprite.addAnimation('secondary', [
     [{ char: 'L', color: 'pink', x: 0, y: 0 }],

@@ -71,7 +71,6 @@ export default class Game {
         newPixel.style.display = 'flex';
         newPixel.style.justifyContent = 'center';
         newPixel.style.textAlign = 'center';
-        //newPixel.style.overflow = 'hidden';
         newRow.appendChild(newPixel);
         arr.push(newPixel);
       }
