@@ -2,7 +2,6 @@ import { listenForKeyboard, checkKeyboardEvents } from '../keyboard/keyboard.js'
 export default class Game {
     constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null }) {
         this.loop = () => {
-            // const stuff = ["▒","▓", ' ', ' '];
             checkKeyboardEvents();
             this.rows.forEach((row) => {
                 row.forEach((el) => {

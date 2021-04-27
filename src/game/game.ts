@@ -82,7 +82,6 @@ export default class Game {
     this.animating = false;
   }
   private loop = () => {
-    // const stuff = ["▒","▓", ' ', ' '];
     checkKeyboardEvents();
     this.rows.forEach((row) => {
       row.forEach((el) => {
