@@ -50,8 +50,12 @@ export default class Game{
             this.canvas.appendChild(newRow);
             for (let j = 0; j < this.width; j++){
                 const newPixel = document.createElement('div');
-                newPixel.style.padding = '0';
-                newPixel.style.margin = '0';
+                newPixel.style.padding = '0px';
+                newPixel.style.margin = '0px';
+                newPixel.style.height = `${this.pixelSize}px`
+                newPixel.style.width = `${this.pixelSize - this.pixelSize*0.4}px`;
+                newPixel.style.textAlign = 'center';
+                newPixel.style.overflow = 'hidden';
                 newRow.appendChild(newPixel);
                 arr.push(newPixel);
             }
@@ -66,18 +70,18 @@ export default class Game{
         this.animating = false;
     }
     private loop = () => {
-        const stuff = ["▇","█","▉","▐","░","▒","▓"]
-        this.rows.forEach((row)=>{
-            row.forEach((el)=>{
-                el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
-            })
-        })
+        // const stuff = ["▒","▓", ' ', ' ']
+        // this.rows.forEach((row)=>{
+        //     row.forEach((el)=>{
+        //         el.textContent = stuff[Math.floor(Math.random()*stuff.length)];
+        //     })
+        // })
         if (this.sprites){
             this.sprites.forEach((sprite)=>{
                 sprite.shape[sprite.currentFrame].forEach((char)=>{
                     const pixel = this.rows[sprite.yPos + char.y][sprite.xPos + char.x]                
                         pixel.textContent = char.char
-                        if (char.backgroundColor) pixel.style.backgroundColor = char.backgroundColor;
+                        if (sprite.backgroundColor) pixel.style.backgroundColor = sprite.backgroundColor;
                         pixel.style.color = char.color;
                 })
                 sprite.updateFrame()

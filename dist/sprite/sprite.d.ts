@@ -12,6 +12,13 @@ interface Options {
         y: number;
     }[][];
 }
+declare type Animation = {
+    char: string;
+    color: string;
+    backgroundColor?: string;
+    x: number;
+    y: number;
+}[][];
 export default class Sprite {
     initial: Options;
     xPos: number;
@@ -27,7 +34,12 @@ export default class Sprite {
         y: number;
     }[][];
     currentFrame: number;
+    animations: {
+        [key: string]: Animation;
+    };
+    currentAnimation: string | null;
     constructor({ xPos, yPos, color, backgroundColor, zIndex, shape }: Options);
     updateFrame: () => number;
+    addAnimation: (name: string, animation: Animation) => Animation;
 }
 export {};
