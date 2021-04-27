@@ -28,6 +28,7 @@ export default class Sprite {
   animationSpeed: number;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
+  coords: { x: number; y: number }[];
   constructor({
     xPos = 0,
     yPos = 0,
@@ -46,6 +47,7 @@ export default class Sprite {
     this.animationSpeed = round(animationSpeed);
     this.animations = {};
     this.currentAnimation = null;
+    this.coords = [];
     Object.freeze(this.initial);
   }
   setCurrentAnimation = (name: string) => {
@@ -76,4 +78,5 @@ export default class Sprite {
       y: number;
     }[][]
   ) => (this.animations[name] = animation);
+  private createCoords = () => {};
 }
