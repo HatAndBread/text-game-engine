@@ -4,6 +4,7 @@ export const listenForMouse = () => {
         if (e.target instanceof HTMLDivElement) {
             const x = e.target.dataset.x;
             const y = e.target.dataset.y;
+            console.log('HO!');
             if (x && y) {
                 clickObjects.forEach((obj) => {
                     obj.sprite.currentCoords.forEach((coord) => {

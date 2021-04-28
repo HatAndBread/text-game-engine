@@ -15,7 +15,9 @@ export default class Game {
             this.elementsToBeCleared = [];
             updateSprites(this);
             detectCollisions();
-            this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
+            if (this.everyTickCB)
+                this.everyTickCB(this.currentTick);
+            this.currentTick < 60 ? (this.currentTick += 1) : (this.currentTick = 1);
             if (this.animating)
                 window.requestAnimationFrame(this.loop);
         };
@@ -28,7 +30,8 @@ export default class Game {
         this.animating = false;
         this.elementsToBeCleared = [];
         this.keyboardSpeed = round(keyboardSpeed);
-        this.currentTick = 0;
+        this.currentTick = 1;
+        this.everyTickCB = null;
         listenForKeyboard();
         listenForMouse();
         this.canvas = document.createElement('div');
@@ -71,5 +74,8 @@ export default class Game {
     }
     endLoop() {
         this.animating = false;
+    }
+    everyTick(cb) {
+        this.everyTickCB = cb;
     }
 }

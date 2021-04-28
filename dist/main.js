@@ -67,8 +67,9 @@ const game = new s.Game({
     fps: 5,
     pixelSize: 20,
     backgroundColor: 'black',
-    keyboardSpeed: 3
+    keyboardSpeed: 8
 });
+game.everyTick((tick) => { });
 s.onKeyDown('ArrowUp', () => (sprite.yPos -= 1));
 s.onKeyDown('ArrowDown', () => (sprite.yPos += 1));
 s.onKeyDown('ArrowLeft', () => (sprite.xPos -= 1));
