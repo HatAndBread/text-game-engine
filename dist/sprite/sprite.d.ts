@@ -6,7 +6,6 @@ interface Options {
     backgroundColor?: string;
     animationSpeed?: number;
     zIndex?: number;
-    family?: string | null;
 }
 declare type Animation = {
     char: string;
@@ -22,7 +21,6 @@ export default class Sprite {
     color: string;
     backgroundColor: string;
     zIndex: number;
-    family: string | null;
     currentFrame: number;
     animationSpeed: number;
     animations: {
@@ -33,7 +31,7 @@ export default class Sprite {
         x: number;
         y: number;
     }[];
-    constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed, family }: Options);
+    constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
     setCurrentAnimation: (name: string) => void;
     updateFrame: (currentTick: number) => void;
     addAnimation: (name: string, animation: {
