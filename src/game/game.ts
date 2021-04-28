@@ -7,6 +7,7 @@ import {
   checkKeyboardEvents
 } from '../keyboard/keyboard.js';
 import round from '../helpers/round.js';
+import { detectCollisions } from '../collisions/collisions.js';
 
 interface Options {
   width?: number;
@@ -93,13 +94,14 @@ export default class Game {
     this.animating = false;
   }
   private loop = () => {
-    if (!(this.currentTick % this.keyboardSpeed)) checkKeyboardEvents();
     this.elementsToBeCleared.forEach((el) => {
       el.textContent = '';
       el.style.backgroundColor = 'transparent';
     });
+    if (!(this.currentTick % this.keyboardSpeed)) checkKeyboardEvents();
     this.elementsToBeCleared = [];
     updateSprites(this);
+    detectCollisions(this);
     this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
     if (this.animating) window.requestAnimationFrame(this.loop);
   };

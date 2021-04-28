@@ -33,12 +33,22 @@ sprite.addAnimation('secondary', [
     [{ char: '🧀', color: 'yellow', x: 4, y: 1 }]
 ]);
 sprite.setCurrentAnimation('main');
+const secondSprite = new s.Sprite({
+    xPos: 15,
+    yPos: 15,
+    color: 'yellow',
+    backgroundColor: 'orange',
+    zIndex: 2,
+    animationSpeed: 5
+});
+secondSprite.addAnimation('two', [[{ char: '✺', color: 'white', x: 0, y: 0 }]]);
+secondSprite.setCurrentAnimation('two');
 const game = new s.Game({
     width: 50,
     height: 20,
     fps: 5,
     pixelSize: 20,
-    sprites: [sprite],
+    sprites: [sprite, secondSprite],
     backgroundColor: 'black',
     keyboardSpeed: 3
 });
@@ -51,5 +61,4 @@ s.onKeyUp('ArrowUp', () => {
 });
 game.createCanvas();
 game.startLoop();
-console.log(game);
 window.game = game;
