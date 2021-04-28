@@ -1,5 +1,7 @@
 import round from '../helpers/round.js';
 
+export const sprites: Sprite[] = [];
+
 interface Options {
   xPos?: number;
   yPos?: number;
@@ -53,6 +55,7 @@ export default class Sprite {
     this.currentAnimation = null;
     this.currentCoords = this.createCoords();
     Object.freeze(this.initial);
+    sprites.push(this);
   }
   setCurrentAnimation = (name: string) => {
     if (!this.animations[name]) {

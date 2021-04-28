@@ -1,4 +1,4 @@
-import Sprite from '../sprite/sprite.js';
+import Sprite, { sprites } from '../sprite/sprite.js';
 const collisionObjects = [];
 const onCollision = (spriteOne, spriteTwo, callback) => {
     if ((spriteOne instanceof Sprite && spriteTwo instanceof Sprite) ||
@@ -17,11 +17,11 @@ const onCollision = (spriteOne, spriteTwo, callback) => {
     }
 };
 const detectCollisions = (game) => {
-    if (game.sprites && game.sprites.length > 1) {
-        for (let i = 0; i < game.sprites.length; i++) {
-            for (let j = 0; j < game.sprites.length; j++) {
-                if (i !== j && areColliding(game.sprites[i], game.sprites[j])) {
-                    callCallbackIfExists(game.sprites[i], game.sprites[j]);
+    if (sprites && sprites.length > 1) {
+        for (let i = 0; i < sprites.length; i++) {
+            for (let j = 0; j < sprites.length; j++) {
+                if (i !== j && areColliding(sprites[i], sprites[j])) {
+                    callCallbackIfExists(sprites[i], sprites[j]);
                 }
             }
         }
@@ -43,6 +43,21 @@ const callCallbackIfExists = (spriteOne, spriteTwo) => {
         if (obj.spriteOne instanceof Sprite && obj.spriteTwo instanceof Sprite) {
             if ((obj.spriteOne === spriteOne && obj.spriteTwo === spriteTwo) ||
                 (obj.spriteOne === spriteTwo && obj.spriteTwo === spriteOne)) {
+                obj.callback();
+            }
+        }
+        else if (typeof obj.spriteOne === 'string' &&
+            typeof obj.spriteTwo === 'string') {
+            if ((obj.spriteOne === spriteOne.family &&
+                obj.spriteTwo === spriteTwo.family) ||
+                (obj.spriteOne === spriteTwo.family &&
+                    obj.spriteTwo === spriteOne.family)) {
+                obj.callback();
+            }
+        }
+        else {
+            if ((obj.spriteOne === spriteOne && obj.spriteTwo === spriteTwo.family) ||
+                (obj.spriteOne === spriteTwo && obj.spriteTwo === spriteOne.family)) {
                 obj.callback();
             }
         }

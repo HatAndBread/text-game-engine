@@ -1,5 +1,5 @@
 import Pixel from '../pixel/pixel.js';
-import Sprite from '../sprite/sprite.js';
+import Sprite, { sprites } from '../sprite/sprite.js';
 import BRUSHES from '../constants/BRUSHES.js';
 import updateSprites from '../sprite/updateSprites.js';
 import {
@@ -15,7 +15,6 @@ interface Options {
   fps?: number;
   pixelSize?: number;
   backgroundColor?: string;
-  sprites?: Sprite[] | null;
   keyboardSpeed?: number;
 }
 
@@ -25,7 +24,6 @@ export default class Game {
   fps: number;
   pixelSize: number;
   backgroundColor: string;
-  sprites: Sprite[] | null;
   animating: boolean;
   canvas: HTMLDivElement;
   rows: HTMLDivElement[][];
@@ -39,7 +37,6 @@ export default class Game {
     fps = 5,
     pixelSize = 5,
     backgroundColor = 'white',
-    sprites = null,
     keyboardSpeed = 2
   }: Options) {
     this.width = width;
@@ -48,7 +45,6 @@ export default class Game {
     this.pixelSize = pixelSize;
     this.backgroundColor = backgroundColor;
     this.rows = [];
-    this.sprites = sprites;
     this.animating = false;
     this.elementsToBeCleared = [];
     this.keyboardSpeed = round(keyboardSpeed);

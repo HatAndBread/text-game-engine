@@ -1,3 +1,4 @@
+export declare const sprites: Sprite[];
 interface Options {
     xPos?: number;
     yPos?: number;

@@ -1,6 +1,7 @@
+import { sprites } from '../sprite/sprite.js';
 const updateSprites = (game) => {
-    if (game.sprites) {
-        game.sprites.forEach((sprite) => {
+    if (sprites) {
+        sprites.forEach((sprite) => {
             if (sprite.currentAnimation) {
                 sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach((char) => {
                     if (game.rows[sprite.yPos + char.y] &&

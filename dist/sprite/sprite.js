@@ -1,4 +1,5 @@
 import round from '../helpers/round.js';
+export const sprites = [];
 export default class Sprite {
     constructor({ xPos = 0, yPos = 0, color = 'black', backgroundColor = 'transparent', zIndex = 0, animationSpeed = 5, family = null }) {
         this.setCurrentAnimation = (name) => {
@@ -45,5 +46,6 @@ export default class Sprite {
         this.currentAnimation = null;
         this.currentCoords = this.createCoords();
         Object.freeze(this.initial);
+        sprites.push(this);
     }
 }

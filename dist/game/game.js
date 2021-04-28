@@ -3,7 +3,7 @@ import { listenForKeyboard, checkKeyboardEvents } from '../keyboard/keyboard.js'
 import round from '../helpers/round.js';
 import { detectCollisions } from '../collisions/collisions.js';
 export default class Game {
-    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', sprites = null, keyboardSpeed = 2 }) {
+    constructor({ width = 100, height = 100, fps = 5, pixelSize = 5, backgroundColor = 'white', keyboardSpeed = 2 }) {
         this.loop = () => {
             this.elementsToBeCleared.forEach((el) => {
                 el.textContent = '';
@@ -24,7 +24,6 @@ export default class Game {
         this.pixelSize = pixelSize;
         this.backgroundColor = backgroundColor;
         this.rows = [];
-        this.sprites = sprites;
         this.animating = false;
         this.elementsToBeCleared = [];
         this.keyboardSpeed = round(keyboardSpeed);

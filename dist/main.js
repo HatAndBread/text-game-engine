@@ -43,12 +43,26 @@ const secondSprite = new s.Sprite({
 });
 secondSprite.addAnimation('two', [[{ char: '✺', color: 'white', x: 0, y: 0 }]]);
 secondSprite.setCurrentAnimation('two');
+const snows = [];
+for (let i = 0; i < 10; i++) {
+    const snow = new s.Sprite({
+        xPos: Math.floor(Math.random() * 20),
+        yPos: Math.floor(Math.random() * 20),
+        color: 'snow',
+        zIndex: 3
+    });
+    snow.addAnimation('main', [[{ char: '❄', color: 'snow', x: 0, y: 0 }]]);
+    snow.setCurrentAnimation('main');
+    s.onCollision(snow, sprite, () => {
+        console.log('snow collided with sprite!');
+    });
+    snows.push(snow);
+}
 const game = new s.Game({
     width: 50,
     height: 20,
     fps: 5,
     pixelSize: 20,
-    sprites: [sprite, secondSprite],
     backgroundColor: 'black',
     keyboardSpeed: 3
 });

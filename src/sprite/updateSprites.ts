@@ -1,7 +1,9 @@
 import Game from '../game/game.js';
+import Sprite, { sprites } from '../sprite/sprite.js';
+
 const updateSprites = (game: Game) => {
-  if (game.sprites) {
-    game.sprites.forEach((sprite) => {
+  if (sprites) {
+    sprites.forEach((sprite) => {
       if (sprite.currentAnimation) {
         sprite.animations[sprite.currentAnimation][sprite.currentFrame].forEach(
           (char) => {
