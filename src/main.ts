@@ -27,6 +27,10 @@ const sprite = new s.Sprite({
   animationSpeed: 12
 });
 
+s.onClick(sprite, () => {
+  console.log('You clicked on the sprite!');
+});
+
 sprite.addAnimation('main', animationOne);
 sprite.addAnimation('secondary', [
   [{ char: 'L', color: 'pink', x: 0, y: 0 }],
@@ -57,7 +61,7 @@ for (let i = 0; i < 10; i++) {
   snow.addAnimation('main', [[{ char: '❄', color: 'snow', x: 0, y: 0 }]]);
   snow.setCurrentAnimation('main');
   s.onCollision(snow, sprite, () => {
-    console.log('snow collided with sprite!');
+    sprite.setCurrentAnimation('secondary');
   });
   snows.push(snow);
 }
@@ -80,7 +84,7 @@ s.onKeyUp('ArrowUp', () => {
   console.log('Hi!');
 });
 s.onCollision(sprite, secondSprite, () => {
-  console.log('sprite one crashed into sprite two!! 🎉');
+  sprite.setCurrentAnimation('main');
 });
 game.createCanvas();
 game.startLoop();

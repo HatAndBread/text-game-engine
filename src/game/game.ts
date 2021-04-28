@@ -1,11 +1,9 @@
-import Pixel from '../pixel/pixel.js';
-import Sprite, { sprites } from '../sprite/sprite.js';
-import BRUSHES from '../constants/BRUSHES.js';
 import updateSprites from '../sprite/updateSprites.js';
 import {
   listenForKeyboard,
   checkKeyboardEvents
 } from '../keyboard/keyboard.js';
+import { listenForMouse } from '../mouse/mouse.js';
 import round from '../helpers/round.js';
 import { detectCollisions } from '../collisions/collisions.js';
 
@@ -50,6 +48,7 @@ export default class Game {
     this.keyboardSpeed = round(keyboardSpeed);
     this.currentTick = 0;
     listenForKeyboard();
+    listenForMouse();
     this.canvas = document.createElement('div');
   }
   createCanvas() {
@@ -76,6 +75,8 @@ export default class Game {
         newPixel.style.display = 'flex';
         newPixel.style.justifyContent = 'center';
         newPixel.style.textAlign = 'center';
+        newPixel.dataset.x = `${j}`;
+        newPixel.dataset.y = `${i}`;
         newRow.appendChild(newPixel);
         arr.push(newPixel);
       }
