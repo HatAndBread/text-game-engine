@@ -64,6 +64,9 @@ s.onKeyDown('ArrowRight', () => (sprite.xPos += 1));
 s.onKeyUp('ArrowUp', () => {
   console.log('Hi!');
 });
+s.onCollision(sprite, secondSprite, () => {
+  console.log('sprite one crashed into sprite two!! 🎉');
+});
 game.createCanvas();
 game.startLoop();
 

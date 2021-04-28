@@ -7,6 +7,7 @@ interface Options {
   backgroundColor?: string;
   animationSpeed?: number;
   zIndex?: number;
+  family?: string | null;
 }
 
 type Animation = {
@@ -24,6 +25,7 @@ export default class Sprite {
   color: string;
   backgroundColor: string;
   zIndex: number;
+  family: string | null;
   currentFrame: number;
   animationSpeed: number;
   animations: { [key: string]: Animation };
@@ -35,7 +37,8 @@ export default class Sprite {
     color = 'black',
     backgroundColor = 'transparent',
     zIndex = 0,
-    animationSpeed = 5
+    animationSpeed = 5,
+    family = null
   }: Options) {
     this.initial = { xPos, yPos, color, backgroundColor, zIndex };
     this.xPos = xPos;
@@ -43,6 +46,7 @@ export default class Sprite {
     this.color = color;
     this.backgroundColor = backgroundColor;
     this.zIndex = zIndex;
+    this.family = family;
     this.currentFrame = 0;
     this.animationSpeed = round(animationSpeed);
     this.animations = {};

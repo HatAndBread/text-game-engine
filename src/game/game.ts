@@ -93,6 +93,7 @@ export default class Game {
   endLoop() {
     this.animating = false;
   }
+
   private loop = () => {
     this.elementsToBeCleared.forEach((el) => {
       el.textContent = '';
