@@ -99,7 +99,7 @@ export default class Game {
     if (!(this.currentTick % this.keyboardSpeed)) checkKeyboardEvents();
     this.elementsToBeCleared = [];
     updateSprites(this);
-    detectCollisions(this);
+    detectCollisions();
     this.currentTick < 59 ? (this.currentTick += 1) : (this.currentTick = 0);
     if (this.animating) window.requestAnimationFrame(this.loop);
   };

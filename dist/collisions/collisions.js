@@ -1,7 +1,20 @@
 import { sprites } from '../sprite/sprite.js';
 const collisionObjects = [];
-const onCollision = (spriteOne, spriteTwo, triggerOnceWhileTrue, callback) => collisionObjects.push({ spriteOne, spriteTwo, callback });
-const detectCollisions = (game) => {
+const onCollision = (spriteOne, spriteTwo, triggerOnceWhileTrue, callback) => collisionObjects.push({
+    spriteOne,
+    spriteTwo,
+    currentlyColliding: false,
+    triggerOnceWhileTrue,
+    callback
+});
+const detectCollisions = () => {
+    collisionObjects.forEach((obj) => {
+        if (obj.currentlyColliding) {
+            if (!areColliding(obj.spriteOne, obj.spriteTwo)) {
+                obj.currentlyColliding = false;
+            }
+        }
+    });
     if (sprites && sprites.length > 1) {
         for (let i = 0; i < sprites.length; i++) {
             for (let j = 0; j < sprites.length; j++) {
@@ -27,7 +40,13 @@ const callCallbackIfExists = (spriteOne, spriteTwo) => {
     collisionObjects.forEach((obj) => {
         if ((obj.spriteOne === spriteOne && obj.spriteTwo === spriteTwo) ||
             (obj.spriteOne === spriteTwo && obj.spriteTwo === spriteOne)) {
-            obj.callback();
+            if (!obj.triggerOnceWhileTrue) {
+                obj.callback();
+            }
+            else if (obj.triggerOnceWhileTrue && !obj.currentlyColliding) {
+                obj.callback();
+            }
+            obj.currentlyColliding = true;
         }
     });
 };

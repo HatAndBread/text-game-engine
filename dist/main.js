@@ -78,6 +78,7 @@ s.onKeyUp('ArrowUp', () => {
 });
 s.onCollision(sprite, secondSprite, true, () => {
     sprite.setCurrentAnimation('main');
+    console.log('FIIIIIIIIII');
 });
 game.createCanvas();
 game.startLoop();
