@@ -1,8 +1,8 @@
 import Game from '../game/game.js';
 import Sprite, { sprites } from '../sprite/sprite.js';
 type CollisionObjects = {
-  spriteOne: Sprite | string;
-  spriteTwo: Sprite | string;
+  spriteOne: Sprite;
+  spriteTwo: Sprite;
   callback: () => any;
 }[];
 
