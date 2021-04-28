@@ -5,8 +5,8 @@ const detectCollisions = (game) => {
                 if (i !== j) {
                     //isColliding(game.sprites[i], game.sprites[j]);
                     const [spriteOne, spriteTwo] = [game.sprites[i], game.sprites[j]];
-                    if (isColliding(game.sprites[i], game.sprites[j])) {
-                        console.log('Collision detected! 🎉');
+                    if (isColliding(spriteOne, spriteTwo)) {
+                        console.log('Collision detected! 🎉', spriteOne.currentCoords, spriteTwo.currentCoords);
                     }
                 }
             }

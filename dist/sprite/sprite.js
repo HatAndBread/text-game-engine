@@ -27,7 +27,7 @@ export default class Sprite {
             const coords = [];
             if (this.currentAnimation) {
                 this.animations[this.currentAnimation][this.currentFrame].forEach((char) => {
-                    coords.push({ x: char.x + this.xPos, y: char.x + this.yPos });
+                    coords.push({ x: char.x + this.xPos, y: char.y + this.yPos });
                 });
             }
             return coords;
