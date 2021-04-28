@@ -3,6 +3,7 @@ import Sprite, { sprites } from '../sprite/sprite.js';
 type CollisionObjects = {
   spriteOne: Sprite;
   spriteTwo: Sprite;
+  currentlyColiding: boolean;
   callback: () => any;
 }[];
 
@@ -12,7 +13,13 @@ const onCollision = (
   spriteTwo: Sprite,
   triggerOnceWhileTrue: boolean,
   callback: () => any
-) => collisionObjects.push({ spriteOne, spriteTwo, callback });
+) =>
+  collisionObjects.push({
+    spriteOne,
+    spriteTwo,
+    currentlyColiding: false,
+    callback
+  });
 
 const detectCollisions = (game: Game) => {
   if (sprites && sprites.length > 1) {
