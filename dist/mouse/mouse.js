@@ -1,20 +1,20 @@
-const clickObjects = [];
-export const listenForMouse = () => {
-    document.addEventListener('click', (e) => {
-        if (e.target instanceof HTMLDivElement) {
-            const x = e.target.dataset.x;
-            const y = e.target.dataset.y;
-            console.log('HO!');
-            if (x && y) {
-                clickObjects.forEach((obj) => {
-                    obj.sprite.currentCoords.forEach((coord) => {
-                        if (coord.x === parseInt(x, 10) && coord.y === parseInt(x, 10)) {
-                            obj.callback();
-                        }
-                    });
+export const clickObjects = [];
+const handleClick = function (e) {
+    if (e.target instanceof HTMLDivElement) {
+        const x = e.target.dataset.x ? parseInt(e.target.dataset.x, 10) : undefined;
+        const y = e.target.dataset.y ? parseInt(e.target.dataset.y, 10) : undefined;
+        if (x && y) {
+            clickObjects.forEach((obj) => {
+                obj.sprite.currentCoords.forEach((coord) => {
+                    if (coord.x === x && coord.y === y) {
+                        obj.callback();
+                    }
                 });
-            }
+            });
         }
-    });
+    }
 };
+export function listenForMouse() {
+    document.addEventListener('click', handleClick);
+}
 export const onClick = (sprite, callback) => clickObjects.push({ sprite, callback });
