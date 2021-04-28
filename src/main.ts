@@ -60,7 +60,7 @@ for (let i = 0; i < 10; i++) {
   });
   snow.addAnimation('main', [[{ char: '❄', color: 'snow', x: 0, y: 0 }]]);
   snow.setCurrentAnimation('main');
-  s.onCollision(snow, sprite, () => {
+  s.onCollision(snow, sprite, true, () => {
     sprite.setCurrentAnimation('secondary');
   });
   snows.push(snow);
@@ -83,7 +83,7 @@ s.onKeyDown('ArrowRight', () => (sprite.xPos += 1));
 s.onKeyUp('ArrowUp', () => {
   console.log('Hi!');
 });
-s.onCollision(sprite, secondSprite, () => {
+s.onCollision(sprite, secondSprite, true, () => {
   sprite.setCurrentAnimation('main');
 });
 game.createCanvas();

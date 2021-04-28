@@ -1,6 +1,6 @@
 import { sprites } from '../sprite/sprite.js';
 const collisionObjects = [];
-const onCollision = (spriteOne, spriteTwo, callback) => collisionObjects.push({ spriteOne, spriteTwo, callback });
+const onCollision = (spriteOne, spriteTwo, triggerOnceWhileTrue, callback) => collisionObjects.push({ spriteOne, spriteTwo, callback });
 const detectCollisions = (game) => {
     if (sprites && sprites.length > 1) {
         for (let i = 0; i < sprites.length; i++) {

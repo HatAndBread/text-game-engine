@@ -10,6 +10,7 @@ const collisionObjects: CollisionObjects = [];
 const onCollision = (
   spriteOne: Sprite,
   spriteTwo: Sprite,
+  triggerOnceWhileTrue: boolean,
   callback: () => any
 ) => collisionObjects.push({ spriteOne, spriteTwo, callback });
 
