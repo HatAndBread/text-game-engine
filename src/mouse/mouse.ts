@@ -1,4 +1,4 @@
-import Sprite, { sprites } from '../sprite/sprite.js';
+import Sprite from '../sprite/sprite.js';
 
 export const clickObjects: { sprite: Sprite; callback: () => any }[] = [];
 
