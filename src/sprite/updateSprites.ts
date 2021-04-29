@@ -1,5 +1,6 @@
 import Game from '../game/game.js';
 import Sprite, { sprites } from '../sprite/sprite.js';
+import handleJump from './spriteJump.js';
 
 const updateSprites = (game: Game) => {
   if (sprites) {
@@ -18,11 +19,14 @@ const updateSprites = (game: Game) => {
               if (sprite.backgroundColor) {
                 pixel.style.backgroundColor = sprite.backgroundColor;
               }
+              if (char.backgroundColor)
+                pixel.style.backgroundColor = char.backgroundColor;
               pixel.style.color = char.color;
             }
           }
         );
       }
+      handleJump(sprite);
       sprite.updateFrame(game.currentTick);
     });
   }

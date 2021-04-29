@@ -44,7 +44,18 @@ export default class Sprite {
         this.animations = {};
         this.currentAnimation = null;
         this.currentCoords = this.createCoords();
+        this.jumpAscending = false;
+        this.jumpDescending = false;
+        this.jumpHeight = null;
+        this.fallHeight = null;
         Object.freeze(this.initial);
         sprites.push(this);
+    }
+    jump(height) {
+        if (!this.jumpAscending && !this.jumpDescending) {
+            this.jumpHeight = height;
+            this.fallHeight = height;
+            this.jumpAscending = true;
+        }
     }
 }

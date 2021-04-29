@@ -28,6 +28,10 @@ export default class Sprite {
   zIndex: number;
   currentFrame: number;
   animationSpeed: number;
+  jumpAscending: boolean;
+  jumpDescending: boolean;
+  jumpHeight: number | null;
+  fallHeight: number | null;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
   currentCoords: { x: number; y: number }[];
@@ -50,6 +54,10 @@ export default class Sprite {
     this.animations = {};
     this.currentAnimation = null;
     this.currentCoords = this.createCoords();
+    this.jumpAscending = false;
+    this.jumpDescending = false;
+    this.jumpHeight = null;
+    this.fallHeight = null;
     Object.freeze(this.initial);
     sprites.push(this);
   }
@@ -72,6 +80,13 @@ export default class Sprite {
       if (!(currentTick % this.animationSpeed)) this.currentFrame = 0;
     }
   };
+  jump(height: number) {
+    if (!this.jumpAscending && !this.jumpDescending) {
+      this.jumpHeight = height;
+      this.fallHeight = height;
+      this.jumpAscending = true;
+    }
+  }
   addAnimation = (
     name: string,
     animation: {

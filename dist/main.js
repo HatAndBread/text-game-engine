@@ -67,12 +67,10 @@ for (let i = 0; i < 10; i++) {
 const game = new s.Game({
     width: 50,
     height: 20,
-    fps: 5,
     pixelSize: 20,
     backgroundColor: 'black',
     keyboardSpeed: 3
 });
-game.everyTick((tick) => { });
 s.onKeyDown('ArrowUp', () => (sprite.yPos -= 1));
 s.onKeyDown('ArrowDown', () => (sprite.yPos += 1));
 s.onKeyDown('ArrowLeft', () => (sprite.xPos -= 1));
@@ -84,5 +82,5 @@ s.onCollision(sprite, secondSprite, true, () => {
     sprite.setCurrentAnimation('main');
     console.log('FIIIIIIIIII');
 });
-game.startLoop();
+game.everyTick((tick) => { });
 window.game = game;

@@ -11,7 +11,6 @@ import createCanvas from './createCanvas.js';
 interface Options {
   width?: number;
   height?: number;
-  fps?: number;
   pixelSize?: number;
   backgroundColor?: string;
   keyboardSpeed?: number;
@@ -20,7 +19,6 @@ interface Options {
 export default class Game {
   width: number;
   height: number;
-  fps: number;
   pixelSize: number;
   backgroundColor: string;
   animating: boolean;
@@ -34,14 +32,12 @@ export default class Game {
   constructor({
     width = 100,
     height = 100,
-    fps = 5,
     pixelSize = 5,
     backgroundColor = 'white',
     keyboardSpeed = 2
   }: Options) {
     this.width = width;
     this.height = height;
-    this.fps = fps;
     this.pixelSize = pixelSize;
     this.backgroundColor = backgroundColor;
     this.rows = [];
@@ -54,6 +50,7 @@ export default class Game {
     listenForMouse();
     this.canvas = document.createElement('div');
     createCanvas(this);
+    this.startLoop();
   }
   startLoop() {
     this.animating = true;

@@ -1,7 +1,6 @@
 interface Options {
     width?: number;
     height?: number;
-    fps?: number;
     pixelSize?: number;
     backgroundColor?: string;
     keyboardSpeed?: number;
@@ -9,7 +8,6 @@ interface Options {
 export default class Game {
     width: number;
     height: number;
-    fps: number;
     pixelSize: number;
     backgroundColor: string;
     animating: boolean;
@@ -19,7 +17,7 @@ export default class Game {
     keyboardSpeed: number;
     elementsToBeCleared: HTMLDivElement[];
     everyTickCB?: ((tick: number) => void) | null;
-    constructor({ width, height, fps, pixelSize, backgroundColor, keyboardSpeed }: Options);
+    constructor({ width, height, pixelSize, backgroundColor, keyboardSpeed }: Options);
     startLoop(): void;
     endLoop(): void;
     everyTick(cb: (tick: number) => void): void;

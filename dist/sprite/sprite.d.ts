@@ -23,6 +23,10 @@ export default class Sprite {
     zIndex: number;
     currentFrame: number;
     animationSpeed: number;
+    jumpAscending: boolean;
+    jumpDescending: boolean;
+    jumpHeight: number | null;
+    fallHeight: number | null;
     animations: {
         [key: string]: Animation;
     };
@@ -34,6 +38,7 @@ export default class Sprite {
     constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
     setCurrentAnimation: (name: string) => void;
     updateFrame: (currentTick: number) => void;
+    jump(height: number): void;
     addAnimation: (name: string, animation: {
         char: string;
         color: string;
