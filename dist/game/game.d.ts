@@ -20,7 +20,6 @@ export default class Game {
     elementsToBeCleared: HTMLDivElement[];
     everyTickCB?: ((tick: number) => void) | null;
     constructor({ width, height, fps, pixelSize, backgroundColor, keyboardSpeed }: Options);
-    createCanvas(): void;
     startLoop(): void;
     endLoop(): void;
     everyTick(cb: (tick: number) => void): void;
