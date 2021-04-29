@@ -26,7 +26,10 @@ export default class Sprite {
     jumpAscending: boolean;
     jumpDescending: boolean;
     jumpHeight: number | null;
+    originalJumpHeight: number;
     fallHeight: number | null;
+    ticksUntilNextJumpStep: number;
+    ticksPassedSinceLastJumpStep: number;
     animations: {
         [key: string]: Animation;
     };

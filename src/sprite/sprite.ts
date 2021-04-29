@@ -31,7 +31,10 @@ export default class Sprite {
   jumpAscending: boolean;
   jumpDescending: boolean;
   jumpHeight: number | null;
+  originalJumpHeight: number;
   fallHeight: number | null;
+  ticksUntilNextJumpStep: number;
+  ticksPassedSinceLastJumpStep: number;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
   currentCoords: { x: number; y: number }[];
@@ -57,6 +60,9 @@ export default class Sprite {
     this.jumpAscending = false;
     this.jumpDescending = false;
     this.jumpHeight = null;
+    this.originalJumpHeight = 0;
+    this.ticksUntilNextJumpStep = 0;
+    this.ticksPassedSinceLastJumpStep = 0;
     this.fallHeight = null;
     Object.freeze(this.initial);
     sprites.push(this);
@@ -82,8 +88,14 @@ export default class Sprite {
   };
   jump(height: number) {
     if (!this.jumpAscending && !this.jumpDescending) {
+      const arr = [];
+      for (let i = 1; i <= height; i++) {
+        arr.push(i);
+      }
+      this.originalJumpHeight = height;
       this.jumpHeight = height;
       this.fallHeight = height;
+      this.ticksUntilNextJumpStep = 1;
       this.jumpAscending = true;
     }
   }
