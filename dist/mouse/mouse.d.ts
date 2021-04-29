@@ -1,7 +1,10 @@
 import Sprite from '../sprite/sprite.js';
-export declare const clickObjects: {
-    sprite: Sprite;
-    callback: () => any;
-}[];
 export declare function listenForMouse(): void;
-export declare const onClick: (sprite: Sprite, callback: () => any) => number;
+export declare const onSpriteClicked: (sprite: Sprite, callback: (coords: {
+    x: number;
+    y: number;
+}) => any) => void;
+export declare const onClick: (callback: ({ x, y }: {
+    x: number;
+    y: number;
+}) => any) => void;

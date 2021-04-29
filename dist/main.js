@@ -25,8 +25,11 @@ const sprite = new s.Sprite({
     zIndex: 1,
     animationSpeed: 12
 });
-s.onClick(sprite, () => {
-    console.log('You clicked on the sprite!');
+s.onSpriteClicked(sprite, (coords) => {
+    console.log('You clicked on the sprite!', coords);
+});
+s.onClick((coords) => {
+    console.log(coords, '🎉');
 });
 sprite.addAnimation('main', animationOne);
 sprite.addAnimation('secondary', [

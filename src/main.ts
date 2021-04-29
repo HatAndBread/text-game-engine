@@ -27,10 +27,13 @@ const sprite = new s.Sprite({
   animationSpeed: 12
 });
 
-s.onClick(sprite, () => {
-  console.log('You clicked on the sprite!');
+s.onSpriteClicked(sprite, (coords) => {
+  console.log('You clicked on the sprite!', coords);
 });
 
+s.onClick((coords) => {
+  console.log(coords, '🎉');
+});
 sprite.addAnimation('main', animationOne);
 sprite.addAnimation('secondary', [
   [{ char: 'L', color: 'pink', x: 0, y: 0 }],
