@@ -25,17 +25,20 @@ const updateSprites = (game) => {
             if (sprite.feelGravity &&
                 !sprite.currentlyJumping &&
                 !sprite.touchingPlatform()) {
-                console.log('I am falling');
                 sprite.yPos += 1;
             }
             else if (sprite.currentlyJumping && sprite.topTouchingPlatform()) {
-                console.log('fudge');
                 sprite.stopJump();
             }
             else if (sprite.currentlyJumping &&
-                sprite.touchingPlatform() &&
-                !sprite.firstJumpFrame) {
+                !sprite.firstJumpFrame &&
+                sprite.touchingPlatform()) {
                 sprite.stopJump();
+            }
+            else if (sprite.feelGravity &&
+                !sprite.currentlyJumping &&
+                sprite.inPlatform()) {
+                sprite.yPos -= 1;
             }
             handleJump(sprite);
             sprite.firstJumpFrame = false;

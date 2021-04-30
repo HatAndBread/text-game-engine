@@ -76,7 +76,7 @@ ground.addAnimation('main', [groundData]);
 ground.setCurrentAnimation('main');
 
 s.onKeyUp(' ', () => {
-  santa.jump(10);
+  santa.jump(8);
 });
 
 s.onKeyDown('ArrowRight', () => (santa.xPos += 1));
