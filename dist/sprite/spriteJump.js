@@ -24,13 +24,8 @@ const handleJump = (sprite) => {
                 sprite.fallHeight -= 1;
             }
         }
-        if (sprite.fallHeight === 0) {
-            sprite.jumpDescending = false;
-            sprite.fallHeight = null;
-            sprite.ticksUntilNextJumpStep = 0;
-            sprite.ticksPassedSinceLastJumpStep = 0;
-            sprite.originalJumpHeight = 0;
-        }
+        if (sprite.fallHeight === 0)
+            sprite.stopJump();
     }
 };
 export default handleJump;

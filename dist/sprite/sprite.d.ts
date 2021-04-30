@@ -2,10 +2,11 @@ export declare const sprites: Sprite[];
 interface Options {
     xPos?: number;
     yPos?: number;
-    color?: string;
     backgroundColor?: string;
     animationSpeed?: number;
     zIndex?: number;
+    platform?: boolean;
+    feelGravity?: boolean;
 }
 declare type Animation = {
     char: string;
@@ -18,11 +19,13 @@ export default class Sprite {
     initial: Options;
     xPos: number;
     yPos: number;
-    color: string;
     backgroundColor: string;
     zIndex: number;
+    platform: boolean;
+    feelGravity: boolean;
     currentFrame: number;
     animationSpeed: number;
+    currentlyJumping: boolean;
     jumpAscending: boolean;
     jumpDescending: boolean;
     jumpHeight: number | null;
@@ -30,6 +33,7 @@ export default class Sprite {
     fallHeight: number | null;
     ticksUntilNextJumpStep: number;
     ticksPassedSinceLastJumpStep: number;
+    firstJumpFrame: boolean;
     animations: {
         [key: string]: Animation;
     };
@@ -38,10 +42,13 @@ export default class Sprite {
         x: number;
         y: number;
     }[];
-    constructor({ xPos, yPos, color, backgroundColor, zIndex, animationSpeed }: Options);
+    constructor({ xPos, yPos, backgroundColor, zIndex, animationSpeed, platform, feelGravity }: Options);
     setCurrentAnimation: (name: string) => void;
     updateFrame: (currentTick: number) => void;
     jump(height: number): void;
+    stopJump(): void;
+    touching(sprite: Sprite): boolean;
+    touchingPlatform(): boolean;
     addAnimation: (name: string, animation: {
         char: string;
         color: string;

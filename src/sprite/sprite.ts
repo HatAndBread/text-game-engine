@@ -5,10 +5,11 @@ export const sprites: Sprite[] = [];
 interface Options {
   xPos?: number;
   yPos?: number;
-  color?: string;
   backgroundColor?: string;
   animationSpeed?: number;
   zIndex?: number;
+  platform?: boolean;
+  feelGravity?: boolean;
 }
 
 type Animation = {
@@ -23,11 +24,13 @@ export default class Sprite {
   initial: Options;
   xPos: number;
   yPos: number;
-  color: string;
   backgroundColor: string;
   zIndex: number;
+  platform: boolean;
+  feelGravity: boolean;
   currentFrame: number;
   animationSpeed: number;
+  currentlyJumping: boolean;
   jumpAscending: boolean;
   jumpDescending: boolean;
   jumpHeight: number | null;
@@ -35,34 +38,39 @@ export default class Sprite {
   fallHeight: number | null;
   ticksUntilNextJumpStep: number;
   ticksPassedSinceLastJumpStep: number;
+  firstJumpFrame: boolean;
   animations: { [key: string]: Animation };
   currentAnimation: string | null;
   currentCoords: { x: number; y: number }[];
   constructor({
     xPos = 0,
     yPos = 0,
-    color = 'black',
     backgroundColor = 'transparent',
     zIndex = 0,
-    animationSpeed = 5
+    animationSpeed = 5,
+    platform = false,
+    feelGravity = false
   }: Options) {
-    this.initial = { xPos, yPos, color, backgroundColor, zIndex };
+    this.initial = { xPos, yPos, backgroundColor, zIndex, platform };
     this.xPos = xPos;
     this.yPos = yPos;
-    this.color = color;
     this.backgroundColor = backgroundColor;
     this.zIndex = zIndex;
+    this.platform = platform;
+    this.feelGravity = feelGravity;
     this.currentFrame = 0;
     this.animationSpeed = round(animationSpeed);
     this.animations = {};
     this.currentAnimation = null;
     this.currentCoords = this.createCoords();
+    this.currentlyJumping = false;
     this.jumpAscending = false;
     this.jumpDescending = false;
     this.jumpHeight = null;
     this.originalJumpHeight = 0;
     this.ticksUntilNextJumpStep = 0;
     this.ticksPassedSinceLastJumpStep = 0;
+    this.firstJumpFrame = false;
     this.fallHeight = null;
     Object.freeze(this.initial);
     sprites.push(this);
@@ -88,16 +96,57 @@ export default class Sprite {
   };
   jump(height: number) {
     if (!this.jumpAscending && !this.jumpDescending) {
-      const arr = [];
-      for (let i = 1; i <= height; i++) {
-        arr.push(i);
-      }
+      this.firstJumpFrame = true;
+      this.currentlyJumping = true;
       this.originalJumpHeight = height;
       this.jumpHeight = height;
       this.fallHeight = height;
       this.ticksUntilNextJumpStep = 1;
+      this.ticksPassedSinceLastJumpStep = 0;
       this.jumpAscending = true;
+      this.originalJumpHeight = height;
     }
+  }
+  stopJump() {
+    this.firstJumpFrame = false;
+    this.currentlyJumping = false;
+    this.jumpAscending = false;
+    this.jumpDescending = false;
+    this.jumpHeight = null;
+    this.originalJumpHeight = 0;
+    this.ticksUntilNextJumpStep = 0;
+    this.ticksPassedSinceLastJumpStep = 0;
+    this.fallHeight = null;
+  }
+  touching(sprite: Sprite): boolean {
+    for (let i = 0; i < sprite.currentCoords.length; i++) {
+      for (let j = 0; j < this.currentCoords.length; j++) {
+        if (
+          sprite.currentCoords[i].x === this.currentCoords[j].x &&
+          sprite.currentCoords[i].y === this.currentCoords[j].y
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  touchingPlatform(): boolean {
+    for (let i = 0; i < sprites.length; i++) {
+      if (sprites[i].platform) {
+        for (let j = 0; j < this.currentCoords.length; j++) {
+          for (let k = 0; k < sprites[i].currentCoords.length; k++) {
+            if (
+              this.currentCoords[j].x === sprites[i].currentCoords[k].x &&
+              this.currentCoords[j].y + 1 === sprites[i].currentCoords[k].y
+            ) {
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
   }
   addAnimation = (
     name: string,

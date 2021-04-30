@@ -42,7 +42,6 @@ sprite.setCurrentAnimation('main');
 const secondSprite = new s.Sprite({
     xPos: 15,
     yPos: 15,
-    color: 'yellow',
     backgroundColor: 'orange',
     zIndex: 2,
     animationSpeed: 5
@@ -54,7 +53,6 @@ for (let i = 0; i < 10; i++) {
     const snow = new s.Sprite({
         xPos: Math.floor(Math.random() * 20),
         yPos: Math.floor(Math.random() * 20),
-        color: 'snow',
         zIndex: 3
     });
     snow.addAnimation('main', [[{ char: '❄', color: 'snow', x: 0, y: 0 }]]);

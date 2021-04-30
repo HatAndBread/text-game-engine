@@ -14,7 +14,12 @@ for (let i = 0; i < 30; i++) {
   clouds.push(cloud);
 }
 
-const santa = new s.Sprite({ xPos: 5, yPos: gameHeight - 3, zIndex: 2 });
+const santa = new s.Sprite({
+  xPos: 5,
+  yPos: gameHeight - 10,
+  zIndex: 2,
+  feelGravity: true
+});
 santa.addAnimation('main', [
   [
     { char: '🎅', x: 1, y: 0 },
@@ -25,6 +30,35 @@ santa.addAnimation('main', [
   ]
 ]);
 santa.setCurrentAnimation('main');
+
+const platform = new s.Sprite({
+  xPos: 20,
+  yPos: 15,
+  backgroundColor: 'yellow',
+  platform: 'true'
+});
+platform.addAnimation('main', [
+  [
+    { char: '▒', color: 'green', x: 0, y: 0 },
+    { char: '▒', color: 'green', x: 1, y: 0, backgroundColor: 'blue' },
+    { char: '▒', color: 'green', x: 2, y: 0 }
+  ]
+]);
+platform.setCurrentAnimation('main');
+
+const ground = new s.Sprite({
+  xPos: 0,
+  yPos: gameHeight - 1,
+  platform: true,
+  backgroundColor: 'brown'
+});
+
+const groundData = [];
+for (let i = 0; i < gameWidth; i++) {
+  groundData.push({ char: '░', color: 'green', x: i, y: 0 });
+}
+ground.addAnimation('main', [groundData]);
+ground.setCurrentAnimation('main');
 
 s.onKeyUp(' ', () => {
   santa.jump(10);

@@ -13,13 +13,29 @@ const updateSprites = (game) => {
                         if (sprite.backgroundColor) {
                             pixel.style.backgroundColor = sprite.backgroundColor;
                         }
-                        if (char.backgroundColor)
+                        if (char.backgroundColor) {
                             pixel.style.backgroundColor = char.backgroundColor;
-                        pixel.style.color = char.color;
+                        }
+                        if (char.color) {
+                            pixel.style.color = char.color;
+                        }
                     }
                 });
             }
+            if (sprite.feelGravity &&
+                !sprite.currentlyJumping &&
+                !sprite.touchingPlatform()) {
+                console.log('I am falling');
+                sprite.yPos += 1;
+            }
+            else if (sprite.currentlyJumping &&
+                sprite.touchingPlatform() &&
+                !sprite.firstJumpFrame) {
+                sprite.firstJumpFrame = false;
+                sprite.stopJump();
+            }
             handleJump(sprite);
+            sprite.firstJumpFrame = false;
             sprite.updateFrame(game.currentTick);
         });
     }
