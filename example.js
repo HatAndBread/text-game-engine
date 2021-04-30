@@ -1,7 +1,7 @@
 import * as s from './dist/index.js';
 
 const gameWidth = 50;
-const gameHeight = 20;
+const gameHeight = 18;
 const clouds = [];
 for (let i = 0; i < 30; i++) {
   const cloud = new s.Sprite({
@@ -33,7 +33,7 @@ santa.setCurrentAnimation('main');
 
 const platform = new s.Sprite({
   xPos: 20,
-  yPos: 15,
+  yPos: 12,
   backgroundColor: 'yellow',
   platform: 'true'
 });
@@ -45,6 +45,21 @@ platform.addAnimation('main', [
   ]
 ]);
 platform.setCurrentAnimation('main');
+
+const platform2 = new s.Sprite({
+  xPos: 30,
+  yPos: 10,
+  backgroundColor: 'yellow',
+  platform: 'true'
+});
+platform2.addAnimation('main', [
+  [
+    { char: '▒', color: 'green', x: 0, y: 0 },
+    { char: '▒', color: 'green', x: 1, y: 0, backgroundColor: 'blue' },
+    { char: '▒', color: 'green', x: 2, y: 0 }
+  ]
+]);
+platform2.setCurrentAnimation('main');
 
 const ground = new s.Sprite({
   xPos: 0,

@@ -49,6 +49,7 @@ export default class Sprite {
     stopJump(): void;
     touching(sprite: Sprite): boolean;
     touchingPlatform(): boolean;
+    topTouchingPlatform(): boolean;
     addAnimation: (name: string, animation: {
         char: string;
         color: string;

@@ -107,4 +107,19 @@ export default class Sprite {
         }
         return false;
     }
+    topTouchingPlatform() {
+        for (let i = 0; i < sprites.length; i++) {
+            if (sprites[i].platform) {
+                for (let j = 0; j < this.currentCoords.length; j++) {
+                    for (let k = 0; k < sprites[i].currentCoords.length; k++) {
+                        if (this.currentCoords[j].x === sprites[i].currentCoords[k].x &&
+                            this.yPos - 1 === sprites[i].currentCoords[k].y) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
