@@ -27,11 +27,14 @@ const updateSprites = (game) => {
                 !sprite.touchingPlatform()) {
                 sprite.yPos += 1;
             }
-            else if (sprite.currentlyJumping && sprite.topTouchingPlatform()) {
+            else if (sprite.currentlyJumping &&
+                sprite.topTouchingPlatform() &&
+                sprite.feelGravity) {
                 sprite.stopJump();
             }
             else if (sprite.currentlyJumping &&
                 !sprite.firstJumpFrame &&
+                sprite.feelGravity &&
                 sprite.touchingPlatform()) {
                 sprite.stopJump();
             }
