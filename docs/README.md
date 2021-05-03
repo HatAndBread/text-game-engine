@@ -17,4 +17,4 @@ import * as u from 'utf-8-game';
 
 # Use
 
-utf-8-game / [Exports](modules.md)
+Documentation 👉 [Exports](modules.md)
