@@ -4,4 +4,6 @@ This is a JavaScript / TypeScript library for building web browser games entirel
 
 Because... Why not? 🤷‍♀️
 
+<a href="https://utf-8-game-engine-example.netlify.app/">Example game</a>
+
 Coming soon!
