@@ -1,5 +1,3 @@
-utf-8-game / [Exports](modules.md)
-
 # UTF-8 Game Engine
 
 This is a JavaScript / TypeScript library for building web browser games entirely out of UTF-8 text characters.
@@ -18,3 +16,5 @@ import * as u from 'utf-8-game';
 ```
 
 # Use
+
+utf-8-game / [Exports](modules.md)
