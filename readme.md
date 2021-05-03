@@ -4,6 +4,12 @@ This is a JavaScript / TypeScript library for building web browser games entirel
 
 Because... Why not? 🤷‍♀️
 
-<a href="https://utf-8-game-engine-example.netlify.app/">Example game</a>
+```
+npm i utf-8-game
+```
 
-Coming soon!
+```javascript
+import * as u from 'utf-8-game';
+```
+
+<a href="https://utf-8-game-engine-example.netlify.app/">Example game</a>
